@@ -37,7 +37,7 @@ public class Game implements Runnable{
 	private void init(){
 		
 		display = new Display(title, width, height);
-		test = ImageLoader.loadImage("/textures/blue_eyes.jpg");
+		test = ImageLoader.loadImage("/textures/SpriteSheet.png");
 		sheet = new SpriteSheet(test);
 	}
 	
@@ -63,9 +63,7 @@ public class Game implements Runnable{
 		
 
 		//Draw Here!
-		g.drawImage(sheet.crop(0, 50, 128, 128), posx, posy, null);
-		posx++;
-		posy++;
+		g.drawImage(sheet.crop(0, 0, 512, 600), 0, 0, null);
 		//End Drawing
 		bs.show();
 		g.dispose();
