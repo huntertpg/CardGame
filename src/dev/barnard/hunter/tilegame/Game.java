@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 import dev.barnard.hunter.tilegame.display.Display;
 import dev.barnard.hunter.tilegame.gfx.ImageLoader;
+import dev.barnard.hunter.tilegame.gfx.SpriteSheet;
 
 public class Game implements Runnable{
 
@@ -19,6 +20,11 @@ public class Game implements Runnable{
 	private BufferStrategy bs;
 	private Graphics g;
 	
+	private BufferedImage test;
+	private SpriteSheet sheet;
+	
+	private int posx = 0;
+	private int posy = 0;
 	
 	public Game(String title, int width, int height){
 		
@@ -31,6 +37,8 @@ public class Game implements Runnable{
 	private void init(){
 		
 		display = new Display(title, width, height);
+		test = ImageLoader.loadImage("/textures/blue_eyes.jpg");
+		sheet = new SpriteSheet(test);
 	}
 	
 	private void tick(){
@@ -48,15 +56,17 @@ public class Game implements Runnable{
 			
 		}
 		
-		g = bs.getDrawGraphics();
+		g = 	bs.getDrawGraphics();
 		
 		//Clear Screen
 		g.clearRect(0, 0, width, height);
 		
 
 		//Draw Here!
+		g.drawImage(sheet.crop(0, 50, 128, 128), posx, posy, null);
+		posx++;
+		posy++;
 		//End Drawing
-		
 		bs.show();
 		g.dispose();
 	}
