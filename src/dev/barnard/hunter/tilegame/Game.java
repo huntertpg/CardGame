@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import dev.barnard.hunter.tilegame.display.Display;
+import dev.barnard.hunter.tilegame.gfx.Assets;
 import dev.barnard.hunter.tilegame.gfx.ImageLoader;
 import dev.barnard.hunter.tilegame.gfx.SpriteSheet;
 
@@ -20,11 +21,6 @@ public class Game implements Runnable{
 	private BufferStrategy bs;
 	private Graphics g;
 	
-	private BufferedImage test;
-	private SpriteSheet sheet;
-	
-	private int posx = 0;
-	private int posy = 0;
 	
 	public Game(String title, int width, int height){
 		
@@ -37,12 +33,14 @@ public class Game implements Runnable{
 	private void init(){
 		
 		display = new Display(title, width, height);
-		test = ImageLoader.loadImage("/textures/SpriteSheet.png");
-		sheet = new SpriteSheet(test);
+		Assets.init();
 	}
+
+	int x = 0;
 	
 	private void tick(){
 		
+		x+=1;
 		
 	}
 	
@@ -63,7 +61,7 @@ public class Game implements Runnable{
 		
 
 		//Draw Here!
-		g.drawImage(sheet.crop(0, 0, 512, 600), 0, 0, null);
+		g.drawImage(Assets.card1, x, 10, null);
 		//End Drawing
 		bs.show();
 		g.dispose();
@@ -74,10 +72,35 @@ public class Game implements Runnable{
 		
 		init();
 		
+		int fps = 60;
+		double timePerTick = 1000000000 / fps;
+		double delta = 0;
+		long now;
+		long lastTime = System.nanoTime();
+		long timer = 0;
+		int ticks = 0;
+		
 		while(running){
+			now = System.nanoTime();
+			delta += (now - lastTime) / timePerTick;
+			timer += now - lastTime;
+			lastTime = now;
 			
-			tick();
-			render();
+			if(delta >= 1){
+				
+				tick();
+				render();		
+				ticks++;
+				delta--;
+				
+			}
+			
+			if(timer >= 1000000000){
+				System.out.println("Ticks and Frames: " + ticks);
+				timer = 0;
+				ticks = 0;
+			}
+
 			
 		}
 		
