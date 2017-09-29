@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 
 import dev.barnard.hunter.tilegame.display.Display;
 import dev.barnard.hunter.tilegame.gfx.Assets;
+import dev.barnard.hunter.tilegame.gfx.GameCamera;
 import dev.barnard.hunter.tilegame.input.KeyManager;
 import dev.barnard.hunter.tilegame.states.GameState;
 import dev.barnard.hunter.tilegame.states.MenuState;
@@ -13,7 +14,7 @@ import dev.barnard.hunter.tilegame.states.State;
 public class Game implements Runnable{
 
 	private Display display;
-	public int width, height;
+	private int width, height;
 	public String title;
 	
 	private boolean running = false;
@@ -29,6 +30,12 @@ public class Game implements Runnable{
 	//Input
 	private KeyManager keyManager;
 	
+	//Camera
+	private GameCamera gameCamera; 
+	
+	//Handler
+	private Handler handler;
+	
 	public Game(String title, int width, int height){
 		
 		this.width = width;
@@ -43,8 +50,11 @@ public class Game implements Runnable{
 		display.getFrame().addKeyListener(keyManager);
 		Assets.init();
 		
-		gameState = new GameState(this);
-		menuState = new MenuState(this);
+		gameCamera = new GameCamera(this, 0, 0);
+		handler = new Handler(this);
+		
+		gameState = new GameState(handler);
+		menuState = new MenuState(handler);
 		State.setState(gameState);
 	}
 
@@ -125,6 +135,18 @@ public class Game implements Runnable{
 	
 	public KeyManager getKeyManager(){
 		return keyManager;
+	}
+	
+	public GameCamera getGameCamera() {
+		return gameCamera;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
 	}
 	
 	public synchronized void start(){

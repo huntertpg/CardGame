@@ -2,13 +2,16 @@ package dev.barnard.hunter.tilegame.entity;
 
 import java.awt.Graphics;
 
-public abstract class Entity {
+import dev.barnard.hunter.tilegame.Handler;
 
+public abstract class Entity {
+	
+	protected Handler handler;
 	protected float x,y;
 	protected int width, height;
 	
-	public Entity(float x, float y, int width, int height){
-		
+	public Entity(Handler handle,float x, float y, int width, int height){
+		this.handler = handle;
 		this.x = x;
 		this.y = y;
 		this.width = width;

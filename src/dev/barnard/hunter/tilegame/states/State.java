@@ -2,7 +2,7 @@ package dev.barnard.hunter.tilegame.states;
 
 import java.awt.Graphics;
 
-import dev.barnard.hunter.tilegame.Game;
+import dev.barnard.hunter.tilegame.Handler;
 
 public abstract class State {
 	
@@ -17,11 +17,11 @@ public abstract class State {
 	}
 	
 	//Class
-	protected Game game;
+	protected Handler handler;
 	
-	public State(Game game){
+	public State(Handler handler){
 		
-		this.game = game;
+		this.handler = handler;
 		
 	}
 	
