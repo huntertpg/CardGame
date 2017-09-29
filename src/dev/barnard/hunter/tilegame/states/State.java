@@ -2,6 +2,8 @@ package dev.barnard.hunter.tilegame.states;
 
 import java.awt.Graphics;
 
+import dev.barnard.hunter.tilegame.Game;
+
 public abstract class State {
 	
 	private static State currentState = null;
@@ -15,6 +17,14 @@ public abstract class State {
 	}
 	
 	//Class
+	protected Game game;
+	
+	public State(Game game){
+		
+		this.game = game;
+		
+	}
+	
 	public abstract void tick();
 	 
 	public abstract void render(Graphics g);

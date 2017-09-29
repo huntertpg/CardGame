@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 
 import dev.barnard.hunter.tilegame.display.Display;
 import dev.barnard.hunter.tilegame.gfx.Assets;
+import dev.barnard.hunter.tilegame.input.KeyManager;
 import dev.barnard.hunter.tilegame.states.GameState;
 import dev.barnard.hunter.tilegame.states.MenuState;
 import dev.barnard.hunter.tilegame.states.State;
@@ -25,26 +26,31 @@ public class Game implements Runnable{
 	private State gameState;
 	private State menuState;
 	
+	//Input
+	private KeyManager keyManager;
+	
 	public Game(String title, int width, int height){
 		
 		this.width = width;
 		this.height = height;
 		this.title = title;
-		
+		keyManager = new KeyManager();
 	}
 
 	private void init(){
 		
 		display = new Display(title, width, height);
+		display.getFrame().addKeyListener(keyManager);
 		Assets.init();
 		
-		gameState = new GameState();
-		menuState = new MenuState();
+		gameState = new GameState(this);
+		menuState = new MenuState(this);
 		State.setState(gameState);
 	}
 
 	
 	private void tick(){
+		keyManager.tick();
 		
 		if(State.getState() != null){
 			State.getState().tick();
@@ -115,6 +121,10 @@ public class Game implements Runnable{
 		
 		stop();
 		
+	}
+	
+	public KeyManager getKeyManager(){
+		return keyManager;
 	}
 	
 	public synchronized void start(){
