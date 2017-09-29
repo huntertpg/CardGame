@@ -5,6 +5,15 @@ import java.awt.image.BufferedImage;
 
 public class Tile {
 	
+	//Static stuff here
+	
+	public static Tile[] tiles = new Tile[256];
+	public static Tile grassTile = new GrassTile(0);
+	public static Tile rockTile = new RockTile(1);
+	public static Tile lavaTile = new LavaTile(2);
+	
+	//Class
+	
 	public static final int TILEWIDTH = 64, TILEHEIGHT = 64;
 	
 	protected BufferedImage texture;
@@ -15,6 +24,7 @@ public class Tile {
 		this.texture = texture;
 		this.id = id;
 		
+		tiles[id] = this;
 	}
 	
 	public void tick(){

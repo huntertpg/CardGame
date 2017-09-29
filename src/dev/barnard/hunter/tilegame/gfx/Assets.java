@@ -21,7 +21,7 @@ public class Assets {
 		player = sheet1.crop(0, 0, width2, height2);
 		grass = sheet1.crop(width2, 0, width2, height2);
 		stone = sheet1.crop(width2*2, 0, width2, height2);
-		lava = sheet1.crop(width2*3, 0, width, height2);
+		lava = sheet1.crop(width2*3, 0, width2, height2);
 	}
 	
 }

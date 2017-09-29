@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import dev.barnard.hunter.tilegame.Game;
 import dev.barnard.hunter.tilegame.entity.creature.Player;
+import dev.barnard.hunter.tilegame.tiles.Tile;
 
 public class GameState extends State{
 
